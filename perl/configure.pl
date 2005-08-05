@@ -22,7 +22,7 @@
 #    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 ################################################################################
-# $Id: configure.pl,v 1.2 2005/08/05 20:09:08 lysek Exp $
+# $Id: configure.pl,v 1.3 2005/08/05 20:39:16 lysek Exp $
 use Config;
 use strict;
 my $NL="\033[0m";
@@ -84,7 +84,7 @@ if( -d $DIR )
         print "$WARN Dynaloader.a not found.. This mean you wont be able to use shared modules in scripts.\n";
     }
 
-    print CONF "#endif // _PERL_MOD_CONFIG_H";
+    print CONF "#endif // _PERL_MOD_CONFIG_H\n";
     close CONF;
 }
 

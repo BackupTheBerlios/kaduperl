@@ -21,7 +21,7 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 ********************************************************************************/
-// $Id: perlinit.cpp,v 1.1 2005/08/05 19:44:40 lysek Exp $
+// $Id: perlinit.cpp,v 1.2 2005/08/05 20:39:16 lysek Exp $
 
 #include"kadu.h"
 #include"qpopupmenu.h"
@@ -69,5 +69,6 @@ int Perl::Close()
     kadu->menuBar()->removeItem( MenuId );
     delete CONSOLE;
     //delete PERL;
+    return 0;
 }
 

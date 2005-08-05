@@ -21,12 +21,13 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 ********************************************************************************/
-// $Id: perlinterpreter.cpp,v 1.1 2005/08/05 19:44:40 lysek Exp $
+// $Id: perlinterpreter.cpp,v 1.2 2005/08/05 20:39:16 lysek Exp $
 
 extern "C" {
 #include"EXTERN.h"
 #include"perl.h"
 }
+#include"perl_config.h"
 #include"perlinterpreter.h"
 #include<qstring.h>
 #include<qfile.h>
@@ -145,9 +146,12 @@ Perl::Interpreter::Interpreter(QObject* parent, const char* name): QObject( pare
     }
 
     perl_construct(my_perl);
-
+    
+#ifdef HAVE_DYNALOADER
     if( perl_parse(my_perl, xs_init, 3, core_args, 0) ) { 
-        
+#else
+    if( perl_parse(my_perl, 0, 3, core_args, 0) ) {
+#endif
         _ERROR |= INTERPRETER_PARSE_ERROR;
         
         // emit _error_( "Can't initialize perl!" );
@@ -172,6 +176,7 @@ Perl::Interpreter::~Interpreter()
 
 /////////////////////////////////////////////
 // Dzieki temu mozna uzywac dynamicznych modulow (.so)
+#ifdef HAVE_DYNALOADER
 extern "C" void Perl::Interpreter::xs_init(pTHX)
 {
    
@@ -180,7 +185,7 @@ extern "C" void Perl::Interpreter::xs_init(pTHX)
     dXSUB_SYS
       newXS("DynaLoader::boot_DynaLoader", boot_DynaLoader, file); 
 }
-
+#endif
 
 /////////////////////////////////////////////
 // Odpala skrypt z pliku, lub kod perla jestli script->isReady()

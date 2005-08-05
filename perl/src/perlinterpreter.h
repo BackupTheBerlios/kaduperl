@@ -21,7 +21,7 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 ********************************************************************************/
-// $Id: perlinterpreter.h,v 1.1 2005/08/05 19:44:40 lysek Exp $
+// $Id: perlinterpreter.h,v 1.2 2005/08/05 20:39:16 lysek Exp $
 
 #ifndef PERLINTERPRETER_H
 #define PERLINTERPRETER_H
@@ -29,13 +29,15 @@ extern "C" {
 #include"EXTERN.h"
 #include"perl.h"
 }
+#include"perl_config.h"
 #include<qobject.h>
 #include<qfile.h>
 #include<qstring.h>
 #include<qobjectlist.h>
 
+#ifdef HAVE_DYNALOADER
 extern "C" void boot_DynaLoader (pTHX_ CV* cv);
-
+#endif
 namespace Perl 
 {
 
@@ -87,8 +89,9 @@ class Interpreter: public QObject
 
     public:
       PerlInterpreter* my_perl;
+#ifdef HAVE_DYNALOADER
       static void xs_init(pTHX);
-   
+#endif
     protected:
       static const int EVAL_ERROR;
       static const int INTERPRETER_ALLOC_ERROR;
