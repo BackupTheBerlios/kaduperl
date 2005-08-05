@@ -21,7 +21,7 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 ********************************************************************************/
-// $Id: perlinit.cpp,v 1.2 2005/08/05 20:39:16 lysek Exp $
+// $Id: perlinit.cpp,v 1.3 2005/08/05 23:16:21 lysek Exp $
 
 #include"kadu.h"
 #include"qpopupmenu.h"

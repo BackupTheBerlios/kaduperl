@@ -21,7 +21,7 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 ********************************************************************************/
-// $Id: perlinterpreter.cpp,v 1.2 2005/08/05 20:39:16 lysek Exp $
+// $Id: perlinterpreter.cpp,v 1.3 2005/08/05 23:16:21 lysek Exp $
 
 extern "C" {
 #include"EXTERN.h"
@@ -35,6 +35,7 @@ extern "C" {
 #include<iostream>
 #include<qregexp.h>
 
+#include"misc.h"
 
 /////////////////////////////////////////////
 // Perl::Script 
@@ -159,7 +160,9 @@ Perl::Interpreter::Interpreter(QObject* parent, const char* name): QObject( pare
         return;
     }
     
-    require_pv("./Kadu.pm");
+    QString pm (dataPath()+"kadu/modules/data/perl/Kadu.pm");
+    std::cerr << "| (" << pm << ") | (" << dataPath() << ")" << std::endl;
+    require_pv(pm);
     // U kolegi na slacku10(perl5.8.4) to segfaultuje:
     // load_module( 0, newSVpv("Kadu", 4), 0 );
 }
