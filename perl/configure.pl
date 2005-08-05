@@ -1,3 +1,4 @@
+#!/usr/bin/env perl
 ################################################################################
 #
 #    Kadu::Perl Configure file.
@@ -21,12 +22,14 @@
 #    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 ################################################################################
-
+# $Id: configure.pl,v 1.2 2005/08/05 20:09:08 lysek Exp $
 use Config;
 use strict;
 my $NL="\033[0m";
 my $ERR="\033[31m*$NL";
 my $OK="\033[32m*$NL";
+my $WARN="\033[36m*$NL";
+my $config="perl_config.h";
 
 sub check(%)
 {
@@ -41,7 +44,7 @@ sub check(%)
   else
   {
       print "not found\n";
-      exit 1;
+      exit 1 if $what->{fatal};
   }
 
 }
@@ -50,10 +53,10 @@ print "$OK" for (1 .. 10);
 print "\n";
 
 my %files = (
-  perlso => { file => 'libperl.so', path => "$Config{archlib}/CORE/libperl.so" },
-  dynaa => { file => 'DynaLoader.a', path => "$Config{archlib}/auto/DynaLoader/DynaLoader.a" },
-  externh => { file => 'EXTERN.h', path => "$Config{archlib}/CORE/EXTERN.h" },
-  perlh=> { file => 'perl.h', path => "$Config{archlib}/CORE/perl.h" }
+  perlso => { file => 'libperl.so', path => "$Config{archlib}/CORE/libperl.so", fatal => 1 },
+  dynaa => { file => 'DynaLoader.a', path => "$Config{archlib}/auto/DynaLoader/DynaLoader.a", fatal => 0 },
+  externh => { file => 'EXTERN.h', path => "$Config{archlib}/CORE/EXTERN.h", fatal => 1 },
+  perlh=> { file => 'perl.h', path => "$Config{archlib}/CORE/perl.h", fatal => 1 }
 );
 
 check($files{$_}) for (keys %files);
@@ -61,17 +64,33 @@ check($files{$_}) for (keys %files);
 my $DIR = `find -name perlinterpreter.cpp -print`;
 $DIR =~ s/perlinterpreter\.cpp//;
 chomp $DIR;
+
 if( -d $DIR )
 {
-    print "$OK Unpacking $files{dynaa}{path} to $DIR\n";
-    ` ar x $files{dynaa}{path}`;
-    ` mv DynaLoader.o $DIR`;
+    open CONF,">$DIR/$config" or die "$ERR Can't open $config";
+    print CONF "#ifndef _PERL_MOD_CONFIG_H\n";
+    print CONF "#define _PERL_MOD_CONFIG_H\n";
+    
+    if( -e $files{dynaa}{path} )
+    {
+        print CONF "#define HAVE_DYNALOADER 1\n";
+        print "$OK Unpacking $files{dynaa}{path} to $DIR\n";
+        ` ar x $files{dynaa}{path}`;
+        ` mv DynaLoader.o $DIR`;
+    }
+
+    else
+    {
+        print "$WARN Dynaloader.a not found.. This mean you wont be able to use shared modules in scripts.\n";
+    }
+
+    print CONF "#endif // _PERL_MOD_CONFIG_H";
+    close CONF;
 }
 
 else
 {
-    print "$ERR Can't find module directory!!!\n";
-    
+    print "$ERR Can't find module directory!!!\n";    
     exit 1;
 }
 
