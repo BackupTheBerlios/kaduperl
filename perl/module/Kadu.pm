@@ -21,7 +21,7 @@
 #    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 ################################################################################
-# $Id: Kadu.pm,v 1.1 2005/08/05 19:26:41 lysek Exp $
+# $Id: Kadu.pm,v 1.1 2005/08/05 19:44:40 lysek Exp $
 package Kadu;
 use warnings;
 use strict;

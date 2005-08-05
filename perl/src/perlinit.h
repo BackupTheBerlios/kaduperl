@@ -1,6 +1,6 @@
 /********************************************************************************
 
-    Kadu::Perl Module functions.
+    Kadu::Perl Initialization header file.
 
     Copyright (c) 2005 Piotr £ysek.
 
@@ -21,15 +21,24 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 ********************************************************************************/
-// $Id: perl.cpp,v 1.1 2005/08/05 19:26:41 lysek Exp $
+// $Id: perlinit.h,v 1.1 2005/08/05 19:44:40 lysek Exp $
 
-#include"perlinit.h"
-extern "C" int perl_init()
+#ifndef PERL_INIT_H
+#define PERL_INIT_H
+#include"perlinterpreter.h"
+#include"perlconsole.h"
+#include"qmenubar.h"
+namespace Perl
 {
-    return Perl::Init();
-}
 
-extern "C" int perl_close()
-{
-    return Perl::Close();
-}
+   // Interpreter *PERL;
+   // Console *CONSOLE;
+   // int MenuId;
+   // QPopupMenu* Menu;
+
+    int Init();
+    int Close();
+
+
+} // namespace Perl
+#endif // PERL_INIT_H
