@@ -21,7 +21,7 @@
 #    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 ################################################################################
-# $Id: spec,v 1.2 2005/08/05 20:09:08 lysek Exp $
+# $Id: spec,v 1.3 2005/08/05 20:18:30 lysek Exp $
 MODULE_SOURCES="
   src/perlconsole.cpp
   src/perl.cpp
@@ -35,7 +35,7 @@ MODULE_MOC_HEADERS="
   src/perlinit.h
 "
 XXXMODULE_LIBS=`perl -MConfig -e 'print "-lperl $Config{perllibs}"'`
-MODULE_LDFLAGS=`perl -MConfig -e 'print "$Config{ccdlflags} $Config{ldflags} -L$Config{archlib}/CORE/ perl/DynaLoader.o"'`" $XXXMODULE_LIBS"
+MODULE_LDFLAGS=`perl -MConfig -e 'print "$Config{ccdlflags} $Config{ldflags} -L$Config{archlib}/CORE/ \`find . -name DynaLoader.o -print\`"'`" $XXXMODULE_LIBS"
 MODULE_CXXFLAGS=`perl -MConfig -e 'print "$Config{ccflags} -I$Config{archlib}/CORE/"'`
 MODULE_LIBS_PATH=`perl -MConfig -e 'print "$Config{archlib}/CORE/"'`
 MODULE_MAKE_CMD=""
