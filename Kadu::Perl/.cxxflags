@@ -1,1 +1,0 @@
--fno-strict-aliasing -pipe -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -I/usr/lib/perl5/5.8.6/i686-linux/CORE/ -fno-exceptions -pipe -Wall  -s
