@@ -1,0 +1,8 @@
+Changes
+Kadu.xs
+Makefile.PL
+MANIFEST
+ppport.h
+README
+t/Kadu.t
+lib/Kadu.pm
