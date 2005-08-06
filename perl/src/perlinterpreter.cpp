@@ -21,7 +21,7 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 ********************************************************************************/
-// $Id: perlinterpreter.cpp,v 1.3 2005/08/05 23:16:21 lysek Exp $
+// $Id: perlinterpreter.cpp,v 1.4 2005/08/06 18:15:30 lysek Exp $
 
 extern "C" {
 #include"EXTERN.h"
