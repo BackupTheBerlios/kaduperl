@@ -5,5 +5,8 @@ extern "C" {
 #include "ppport.h"
 }
 
-MODULE = Kadu		PACKAGE = Kadu		
+#include "kadu.h"
+MODULE = Kadu		PACKAGE = Core
+
+
 
